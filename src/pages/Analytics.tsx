@@ -96,7 +96,7 @@ export default function AnalyticsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-all">
+              <Card className="bg-white/8 border-white/20 text-white hover:bg-white/12 transition-all">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-3 rounded-xl bg-white/10 border border-white/20">
@@ -120,7 +120,7 @@ export default function AnalyticsPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <Card className="lg:col-span-2 bg-white/5 border-white/10 text-white">
+          <Card className="lg:col-span-2 bg-white/8 border-white/20 text-white">
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
                 <Activity className="w-5 h-5 text-emerald-400" /> Weekly
@@ -151,7 +151,7 @@ export default function AnalyticsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/5 border-white/10 text-white">
+          <Card className="bg-white/8 border-white/20 text-white">
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
                 <Zap className="w-5 h-5 text-amber-400" /> Skill Distribution

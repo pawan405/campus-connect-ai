@@ -41,6 +41,39 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import ThreeDBackground from "@/components/ThreeDBackground";
 
+// Custom Tick Components for Recharts
+const CustomAxisTick = (props: any) => {
+  const { x, y, payload } = props;
+  return (
+    <text 
+      x={x} 
+      y={y} 
+      textAnchor="middle" 
+      fill="white" 
+      style={{ fill: 'white', fontSize: '10px' }}
+      dominantBaseline="middle"
+    >
+      {payload.value}
+    </text>
+  );
+};
+
+const CustomPolarTick = (props: any) => {
+  const { cx, cy, payload } = props;
+  return (
+    <text 
+      x={cx} 
+      y={cy} 
+      textAnchor="middle" 
+      fill="white" 
+      style={{ fill: 'white', fontSize: '10px' }}
+      dominantBaseline="middle"
+    >
+      {payload.value}
+    </text>
+  );
+};
+
 // Mock Data
 const growthData = [
   { month: "Jan", progress: 45 },
@@ -232,13 +265,13 @@ export default function CareerProgressPage() {
                   <XAxis 
                     dataKey="month" 
                     stroke="rgba(255,255,255,0.3)" 
-                    fontSize={10} 
+                    tick={<CustomAxisTick />}
                     tickLine={false} 
                     axisLine={false}
                   />
                   <YAxis 
                     stroke="rgba(255,255,255,0.3)" 
-                    fontSize={10} 
+                    tick={<CustomAxisTick />}
                     tickLine={false} 
                     axisLine={false}
                     domain={[0, 100]}
@@ -270,8 +303,8 @@ export default function CareerProgressPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={skillData}>
                   <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                  <PolarAngleAxis dataKey="subject" stroke="rgba(255,255,255,0.5)" fontSize={10} />
-                  <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="transparent" />
+                  <PolarAngleAxis dataKey="subject" stroke="rgba(255,255,255,0.5)" tick={<CustomPolarTick />} />
+                  <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="transparent" tick={<CustomPolarTick />} />
                   <RechartsRadar
                     name="Skills"
                     dataKey="A"
@@ -373,17 +406,6 @@ export default function CareerProgressPage() {
           </p>
         </div>
       </footer>
-
-      <style jsx global>{`
-        .recharts-cartesian-grid-horizontal line,
-        .recharts-cartesian-grid-vertical line {
-          stroke: rgba(255, 255, 255, 0.05);
-        }
-        .recharts-tooltip-cursor {
-          stroke: rgba(168, 85, 247, 0.2);
-          stroke-width: 2px;
-        }
-      `}</style>
     </div>
   );
 }
