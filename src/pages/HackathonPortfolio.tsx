@@ -85,7 +85,7 @@ export default function HackathonPortfolioPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all h-full">
+                <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all h-full text-white">
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start mb-4">
                       <div>
