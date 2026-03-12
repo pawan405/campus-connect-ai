@@ -1,0 +1,87 @@
+$ tsc && vite build
+src/components/CampusConnectChatbot.tsx(3,8): error TS6133: 'React' is declared but its value is never read.
+src/components/ErrorReporter.tsx(11,48): error TS6133: 'reset' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(3,1): error TS6133: 'React' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(23,15): error TS6133: 'BarChartIcon' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(24,15): error TS6133: 'PieChartIcon' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(27,1): error TS6192: All imports in import declaration are unused.
+src/components/HackathonParticipationView.tsx(41,1): error TS6192: All imports in import declaration are unused.
+src/components/HackathonParticipationView.tsx(80,7): error TS6133: 'barData' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(87,7): error TS6133: 'pieData' is declared but its value is never read.
+src/components/HackathonParticipationView.tsx(92,7): error TS6133: 'domains' is declared but its value is never read.
+src/components/providers.tsx(3,33): error TS2307: Cannot find module 'next-auth/react' or its corresponding type declarations.
+src/components/RequireAuth.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/RequireAuth.tsx(5,63): error TS2503: Cannot find namespace 'JSX'.
+src/components/TiltCard.tsx(3,25): error TS6133: 'useState' is declared but its value is never read.
+src/components/ui/chart.tsx(109,3): error TS2339: Property 'payload' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 17 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/components/ui/chart.tsx(114,3): error TS2339: Property 'label' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 17 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/components/ui/chart.tsx(182,23): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/components/ui/chart.tsx(182,29): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/ui/chart.tsx(260,39): error TS2344: Type '"verticalAlign" | "payload"' does not satisfy the constraint '"string" | "path" | "color" | "points" | "style" | "clipPath" | "filter" | "mask" | "className" | "key" | "suppressHydrationWarning" | "id" | "lang" | "tabIndex" | "role" | "content" | ... 430 more ... | "onBBoxUpdate"'.
+  Type '"payload"' is not assignable to type '"string" | "path" | "color" | "points" | "style" | "clipPath" | "filter" | "mask" | "className" | "key" | "suppressHydrationWarning" | "id" | "lang" | "tabIndex" | "role" | "content" | ... 430 more ... | "onBBoxUpdate"'.
+src/components/ui/chart.tsx(266,17): error TS2339: Property 'length' does not exist on type '{}'.
+src/components/ui/chart.tsx(278,16): error TS2339: Property 'map' does not exist on type '{}'.
+src/components/ui/chart.tsx(278,21): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/lib/firebase.ts(15,29): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/firebase.ts(31,62): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/pages/AIRoadmap.tsx(1,31): error TS6133: 'useRef' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(3,16): error TS6133: 'useNavigate' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(9,3): error TS6133: 'BookOpen' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(11,3): error TS6133: 'Briefcase' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(12,3): error TS6133: 'Clock' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(14,3): error TS6133: 'Lightbulb' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(19,3): error TS6133: 'Star' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(21,3): error TS6133: 'Wand2' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(22,3): error TS6133: 'ChevronDown' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(23,3): error TS6133: 'ChevronRight' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(26,3): error TS6133: 'Activity' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(28,3): error TS6133: 'BarChart3' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(30,16): error TS6133: 'LineChartIcon' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(31,3): error TS6133: 'CircleDot' is declared but its value is never read.
+src/pages/AIRoadmap.tsx(561,29): error TS2304: Cannot find name 'Users'.
+src/pages/Hackathons.tsx(2,28): error TS6133: 'useThree' is declared but its value is never read.
+src/pages/Hackathons.tsx(7,3): error TS6133: 'Text' is declared but its value is never read.
+src/pages/Hackathons.tsx(11,3): error TS6133: 'Environment' is declared but its value is never read.
+src/pages/Hackathons.tsx(12,3): error TS6133: 'PresentationControls' is declared but its value is never read.
+src/pages/Hackathons.tsx(16,3): error TS6133: 'AnimatePresence' is declared but its value is never read.
+src/pages/Hackathons.tsx(22,1): error TS6192: All imports in import declaration are unused.
+src/pages/Hackathons.tsx(31,3): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/Hackathons.tsx(38,3): error TS6133: 'Gamepad2' is declared but its value is never read.
+src/pages/Hackathons.tsx(101,10): error TS6133: 'GridFloor' is declared but its value is never read.
+src/pages/Hackathons.tsx(478,18): error TS6133: 'setFilter' is declared but its value is never read.
+src/pages/Hackathons.tsx(493,9): error TS6133: 'filteredHackathons' is declared but its value is never read.
+src/pages/Hackathons.tsx(820,14): error TS2322: Type '{ children: string; jsx: true; global: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/pages/Home.tsx(11,3): error TS6133: 'Code' is declared but its value is never read.
+src/pages/Home.tsx(12,3): error TS6133: 'Lock' is declared but its value is never read.
+src/pages/Home.tsx(13,3): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/Home.tsx(14,3): error TS6133: 'CheckCircle2' is declared but its value is never read.
+src/pages/Home.tsx(15,3): error TS6133: 'Users' is declared but its value is never read.
+src/pages/Home.tsx(17,3): error TS6133: 'Briefcase' is declared but its value is never read.
+src/pages/Home.tsx(23,3): error TS6133: 'Search' is declared but its value is never read.
+src/pages/Home.tsx(33,1): error TS6192: All imports in import declaration are unused.
+src/pages/Home.tsx(83,21): error TS2322: Type 'string' is not assignable to type 'never'.
+src/pages/Internships.tsx(3,16): error TS6133: 'useNavigate' is declared but its value is never read.
+src/pages/Internships.tsx(6,3): error TS6133: 'Briefcase' is declared but its value is never read.
+src/pages/Internships.tsx(14,3): error TS6133: 'Building2' is declared but its value is never read.
+src/pages/Internships.tsx(16,3): error TS6133: 'Calendar' is declared but its value is never read.
+src/pages/Internships.tsx(21,3): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/Internships.tsx(22,3): error TS6133: 'Clock' is declared but its value is never read.
+src/pages/Internships.tsx(27,3): error TS6133: 'Users' is declared but its value is never read.
+src/pages/Internships.tsx(33,3): error TS6133: 'ExternalLink' is declared but its value is never read.
+src/pages/Internships.tsx(40,1): error TS6192: All imports in import declaration are unused.
+src/pages/Internships.tsx(318,15): error TS6133: 'id' is declared but its value is never read.
+src/pages/Login.tsx(8,3): error TS6133: 'Lock' is declared but its value is never read.
+src/pages/Login.tsx(15,1): error TS6133: 'auth' is declared but its value is never read.
+src/pages/MatchAnalysis.tsx(3,39): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/MatchAnalysis.tsx(3,51): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/MatchAnalysis.tsx(5,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/pages/MatchAnalysis.tsx(5,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/pages/Settings.tsx(1,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/Settings.tsx(8,3): error TS6133: 'Bell' is declared but its value is never read.
+src/pages/Settings.tsx(9,3): error TS6133: 'Lock' is declared but its value is never read.
+src/pages/Settings.tsx(10,3): error TS6133: 'Eye' is declared but its value is never read.
+src/pages/Settings.tsx(26,1): error TS6133: 'Badge' is declared but its value is never read.
+src/pages/Settings.tsx(34,9): error TS6133: 'handleLogout' is declared but its value is never read.
+src/pages/SilentScream.tsx(3,16): error TS6133: 'useNavigate' is declared but its value is never read.
+src/pages/SilentScream.tsx(32,10): error TS6133: 'isUploading' is declared but its value is never read.

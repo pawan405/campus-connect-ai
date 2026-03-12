@@ -1,0 +1,16 @@
+src/components/ui/chart.tsx(109,3): error TS2339: Property 'payload' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 17 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/components/ui/chart.tsx(114,3): error TS2339: Property 'label' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 17 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.
+src/components/ui/chart.tsx(182,23): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/components/ui/chart.tsx(182,29): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/ui/chart.tsx(260,39): error TS2344: Type '"verticalAlign" | "payload"' does not satisfy the constraint '"string" | "path" | "color" | "points" | "style" | "clipPath" | "filter" | "mask" | "className" | "key" | "suppressHydrationWarning" | "id" | "lang" | "tabIndex" | "role" | "content" | ... 430 more ... | "onBBoxUpdate"'.
+  Type '"payload"' is not assignable to type '"string" | "path" | "color" | "points" | "style" | "clipPath" | "filter" | "mask" | "className" | "key" | "suppressHydrationWarning" | "id" | "lang" | "tabIndex" | "role" | "content" | ... 430 more ... | "onBBoxUpdate"'.
+src/components/ui/chart.tsx(266,17): error TS2339: Property 'length' does not exist on type '{}'.
+src/components/ui/chart.tsx(278,16): error TS2339: Property 'map' does not exist on type '{}'.
+src/components/ui/chart.tsx(278,21): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/pages/Home.tsx(83,21): error TS2322: Type 'string' is not assignable to type 'never'.
+src/pages/Settings.tsx(63,18): error TS2304: Cannot find name 'ArrowLeft'.
+src/pages/Settings.tsx(67,16): error TS2304: Cannot find name 'Settings'.
+src/pages/Settings.tsx(136,20): error TS2304: Cannot find name 'Cpu'.
+src/pages/Settings.tsx(174,20): error TS2304: Cannot find name 'ShieldCheck'.
+src/pages/Settings.tsx(183,22): error TS2304: Cannot find name 'Smartphone'.
+src/pages/Settings.tsx(240,16): error TS2304: Cannot find name 'Save'.
