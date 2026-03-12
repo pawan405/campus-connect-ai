@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import {
   FileText,
@@ -84,6 +83,7 @@ export default function ResumeMaker() {
   const handleDownload = async () => {
     if (!resumeRef.current) return;
 
+    console.info("Resume export engine: jspdf-text-v2");
     const toastId = toast.loading("Synthesizing PDF assets...");
 
     async function saveBlobToDisk(blob: Blob, filename = "export.pdf") {
@@ -121,54 +121,186 @@ export default function ResumeMaker() {
     }
 
     try {
-      // Clone the resume node and strip complex styling (oklch colors, shadows)
-      // so html2canvas doesn't attempt to parse unsupported color functions.
-      const originalNode = resumeRef.current;
-      const cloneNode = originalNode.cloneNode(true) as HTMLElement;
-      // Force simple colors and remove shadows/borders on root
-      cloneNode.style.backgroundColor = "#ffffff";
-      cloneNode.style.color = "#000000";
-      cloneNode.style.boxShadow = "none";
-      cloneNode.style.border = "none";
-      cloneNode.style.position = "fixed";
-      cloneNode.style.left = "-9999px";
-      cloneNode.style.top = "0";
-      // Ensure the clone has the same width for accurate rendering
-      const rect = originalNode.getBoundingClientRect();
-      cloneNode.style.width = rect.width + "px";
-
-      // Strip child styles that may contain modern color functions
-      cloneNode.querySelectorAll("*").forEach((el) => {
-        const e = el as HTMLElement;
-        e.style.background = "transparent";
-        e.style.backgroundColor = "transparent";
-        e.style.borderColor = "transparent";
-        e.style.boxShadow = "none";
-        e.style.filter = "none";
-        e.style.color = "inherit";
-      });
-
-      document.body.appendChild(cloneNode);
-      const canvas = await html2canvas(cloneNode, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: "#ffffff",
-      });
-      document.body.removeChild(cloneNode);
-
-      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
         format: "a4",
       });
 
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 14;
+      const contentWidth = pageWidth - margin * 2;
+      const rightColumnX = pageWidth - margin;
+      let y = margin;
 
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      const ensureSpace = (needed = 8) => {
+        if (y + needed > pageHeight - margin) {
+          pdf.addPage();
+          y = margin;
+        }
+      };
+
+      const addSectionTitle = (title: string) => {
+        ensureSpace(10);
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(11);
+        pdf.setTextColor(75, 85, 99);
+        pdf.text(title.toUpperCase(), margin, y);
+        y += 1.5;
+        pdf.setDrawColor(226, 232, 240);
+        pdf.line(margin, y + 1.5, margin + contentWidth, y + 1.5);
+        y += 6;
+      };
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(22);
+      pdf.setTextColor(17, 24, 39);
+      pdf.text((personalInfo.name || "UNNAMED ENTITY").toUpperCase(), margin, y);
+      y += 7;
+
+      const contactParts = [
+        personalInfo.email,
+        personalInfo.phone,
+        personalInfo.location,
+      ].filter(Boolean);
+      if (contactParts.length) {
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        pdf.setTextColor(55, 65, 81);
+        pdf.text(contactParts.join("  |  "), margin, y);
+        y += 6;
+      }
+
+      pdf.setDrawColor(17, 24, 39);
+      pdf.line(margin, y, margin + contentWidth, y);
+      y += 7;
+
+      addSectionTitle("Professional Summary");
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(10.5);
+      pdf.setTextColor(31, 41, 55);
+      const summary = personalInfo.summary || "No summary provided.";
+      const summaryLines = pdf.splitTextToSize(summary, contentWidth);
+      ensureSpace(summaryLines.length * 5);
+      pdf.text(summaryLines, margin, y);
+      y += summaryLines.length * 5 + 4;
+
+      addSectionTitle("Technical Matrix");
+      const skillsText = skills.length ? skills.join(" • ") : "No skills provided.";
+      const skillLines = pdf.splitTextToSize(skillsText, contentWidth);
+      ensureSpace(skillLines.length * 5);
+      pdf.text(skillLines, margin, y);
+      y += skillLines.length * 5 + 4;
+
+      addSectionTitle("Experience History");
+      if (!experience.length) {
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        pdf.text("No experience entries.", margin, y);
+        y += 6;
+      } else {
+        experience.forEach((exp) => {
+          ensureSpace(14);
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(10.5);
+          pdf.setTextColor(17, 24, 39);
+          const roleCompany = `${exp.role || "Role"} @ ${exp.company || "Company"}`;
+          const roleLine = pdf.splitTextToSize(roleCompany, contentWidth - 28)[0] || roleCompany;
+          pdf.text(roleLine, margin, y);
+
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(9);
+          pdf.setTextColor(75, 85, 99);
+          const duration = exp.duration || "";
+          const durationWidth = pdf.getTextWidth(duration);
+          pdf.text(duration, rightColumnX - durationWidth, y);
+          y += 4.5;
+
+          pdf.setFont("helvetica", "normal");
+          pdf.setFontSize(10);
+          pdf.setTextColor(55, 65, 81);
+          const descLines = pdf.splitTextToSize(
+            exp.desc || "No description provided.",
+            contentWidth
+          );
+          ensureSpace(descLines.length * 4.5 + 2);
+          pdf.text(descLines, margin, y);
+          y += descLines.length * 4.5 + 4;
+        });
+      }
+
+      addSectionTitle("Academic Record");
+      if (!education.length) {
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        pdf.text("No education entries.", margin, y);
+        y += 6;
+      } else {
+        education.forEach((edu) => {
+          ensureSpace(12);
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(10.5);
+          pdf.setTextColor(17, 24, 39);
+          pdf.text((edu.school || "School").toUpperCase(), margin, y);
+
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(9);
+          pdf.setTextColor(75, 85, 99);
+          const year = edu.year || "";
+          const yearWidth = pdf.getTextWidth(year);
+          pdf.text(year, rightColumnX - yearWidth, y);
+          y += 4.5;
+
+          pdf.setFont("helvetica", "italic");
+          pdf.setFontSize(10);
+          pdf.setTextColor(55, 65, 81);
+          const degreeLines = pdf.splitTextToSize(
+            edu.degree || "No degree specified.",
+            contentWidth
+          );
+          ensureSpace(degreeLines.length * 4.5 + 2);
+          pdf.text(degreeLines, margin, y);
+          y += degreeLines.length * 4.5 + 4;
+        });
+      }
+
+      addSectionTitle("Projects");
+      if (!projects.length) {
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        pdf.text("No projects listed.", margin, y);
+      } else {
+        projects.forEach((project) => {
+          ensureSpace(13);
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(10.5);
+          pdf.setTextColor(17, 24, 39);
+          const projectTitle = project.name || "Untitled Project";
+          pdf.text(projectTitle, margin, y);
+          y += 4.5;
+
+          pdf.setFont("helvetica", "normal");
+          pdf.setFontSize(9.5);
+          pdf.setTextColor(75, 85, 99);
+          const tech = project.tech ? `Tech: ${project.tech}` : "Tech: N/A";
+          const techLines = pdf.splitTextToSize(tech, contentWidth);
+          ensureSpace(techLines.length * 4.5 + 2);
+          pdf.text(techLines, margin, y);
+          y += techLines.length * 4.5;
+
+          pdf.setFont("helvetica", "normal");
+          pdf.setFontSize(10);
+          pdf.setTextColor(55, 65, 81);
+          const projectDescLines = pdf.splitTextToSize(
+            project.desc || "No description provided.",
+            contentWidth
+          );
+          ensureSpace(projectDescLines.length * 4.5 + 2);
+          pdf.text(projectDescLines, margin, y);
+          y += projectDescLines.length * 4.5 + 4;
+        });
+      }
 
       // Create a Blob from the generated PDF and try to save it using the
       // File System Access API. If not supported, fallback to standard download.
