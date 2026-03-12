@@ -96,7 +96,7 @@ export default function AnalyticsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all">
+              <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-all">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-3 rounded-xl bg-white/10 border border-white/20">
@@ -112,7 +112,7 @@ export default function AnalyticsPage() {
                   <p className="text-xs font-bold text-white/40 uppercase tracking-widest mb-1">
                     {stat.label}
                   </p>
-                  <p className="text-3xl font-black">{stat.value}</p>
+                  <p className="text-3xl font-black text-white">{stat.value}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -120,36 +120,40 @@ export default function AnalyticsPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <Card className="lg:col-span-2 bg-white/5 border-white/10">
+          <Card className="lg:col-span-2 bg-white/5 border-white/10 text-white">
             <CardHeader>
-              <CardTitle className="text-lg font-bold flex items-center gap-2">
+              <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
                 <Activity className="w-5 h-5 text-emerald-400" /> Weekly
                 Engagement
               </CardTitle>
             </CardHeader>
-            <CardContent className="h-[300px] flex items-end justify-between gap-2 px-8 pb-12">
-              {[40, 70, 45, 90, 65, 80, 95].map((height, i) => (
-                <div
-                  key={i}
-                  className="flex-1 flex flex-col items-center gap-3 group"
-                >
-                  <motion.div
-                    initial={{ height: 0 }}
-                    animate={{ height: `${height}%` }}
-                    transition={{ duration: 1, delay: i * 0.1 }}
-                    className="w-full bg-gradient-to-t from-emerald-500/20 to-emerald-500 rounded-t-lg"
-                  />
-                  <span className="text-[10px] font-black text-white/20 uppercase">
-                    {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i]}
-                  </span>
-                </div>
-              ))}
+            <CardContent className="h-[300px] px-8 pb-12">
+              <div className="flex h-full items-end justify-between gap-3">
+                {[40, 70, 45, 90, 65, 80, 95].map((height, i) => (
+                  <div
+                    key={i}
+                    className="flex h-full flex-1 flex-col justify-end gap-3"
+                  >
+                    <div className="flex h-[220px] items-end">
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: `${height * 2.2}px` }}
+                        transition={{ duration: 0.9, delay: i * 0.08 }}
+                        className="w-full rounded-t-xl border border-emerald-400/20 bg-gradient-to-t from-emerald-500/20 via-emerald-400/70 to-emerald-300 shadow-[0_0_24px_rgba(16,185,129,0.22)]"
+                      />
+                    </div>
+                    <span className="text-center text-[10px] font-black text-white/45 uppercase tracking-widest">
+                      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i]}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/5 border-white/10">
+          <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader>
-              <CardTitle className="text-lg font-bold flex items-center gap-2">
+              <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
                 <Zap className="w-5 h-5 text-amber-400" /> Skill Distribution
               </CardTitle>
             </CardHeader>

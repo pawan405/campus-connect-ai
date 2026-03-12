@@ -399,7 +399,7 @@ export default function DashboardPage() {
               >
                 <DropdownMenuItem
                   onClick={() => navigate("/settings")}
-                  className="rounded-xl focus:bg-white/5 focus:text-cyan-400 cursor-pointer p-3 gap-3"
+                  className="rounded-xl text-white focus:bg-white/5 focus:text-cyan-400 cursor-pointer p-3 gap-3"
                 >
                   <User className="w-4 h-4" />
                   <span className="text-sm font-bold">Profile Interface</span>
@@ -410,7 +410,7 @@ export default function DashboardPage() {
                     await signOutUser();
                     navigate("/");
                   }}
-                  className="rounded-xl focus:bg-rose-500/20 focus:text-rose-400 cursor-pointer p-3 gap-3"
+                  className="rounded-xl text-white focus:bg-rose-500/20 focus:text-rose-400 cursor-pointer p-3 gap-3"
                 >
                   <LogOut className="w-4 h-4" />
                   <span className="text-sm font-bold">Disconnect</span>
