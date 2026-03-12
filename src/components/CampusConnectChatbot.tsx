@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, User, Bot, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,9 @@ interface Message {
   role: "user" | "bot";
   content: string;
 }
+
+const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY;
+const systemPrompt = "You are CampusConnect AI, a helpful mentor for college students. You provide guidance on careers, skills, projects, and internships. Be concise and supportive.";
 
 export function CampusConnectChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,24 +48,26 @@ export function CampusConnectChatbot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: messages.concat({ role: "user", content: userMessage }).map((m) => ({
-            role: m.role === "bot" ? "assistant" : "user",
-            content: m.content,
-          })),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
+      if (!geminiApiKey) {
+        throw new Error("Missing Gemini API key. Set GEMINI_API_KEY or VITE_GEMINI_API_KEY in .env.");
       }
 
-        setMessages((prev) => [...prev, { role: "bot", content: data.content }]);
+      const genAI = new GoogleGenerativeAI(geminiApiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+      const conversation = messages
+        .concat({ role: "user", content: userMessage })
+        .map((message) => `${message.role === "bot" ? "Assistant" : "User"}: ${message.content}`)
+        .join("\n\n");
+
+      const result = await model.generateContent(`${systemPrompt}\n\nConversation:\n${conversation}\n\nAssistant:`);
+      const content = result.response.text().trim();
+
+      if (!content) {
+        throw new Error("Received an empty response from Gemini.");
+      }
+
+      setMessages((prev) => [...prev, { role: "bot", content }]);
     } catch (error) {
       console.error("Chat error:", error);
       setMessages((prev) => [
